@@ -72,4 +72,16 @@ public class MoodAnalyzerFactory {
         }
     }
 
+    //UC5:With Parameter Constructor
+    public static Constructor<?> getConstructor(Class<?> ... stringClass) throws MoodAnalysisException {
+        try {
+            Class<?> moodAnalyzerClass = Class.forName("com.bridgelabz.MoodAnalyzer");
+            return moodAnalyzerClass.getConstructor(String.class);
+        } catch (NoSuchMethodException e) {
+            throw new MoodAnalysisException(MoodAnalysisException.MoodException.NO_SUCH_METHOD,e.getMessage());
+        }
+        catch (ClassNotFoundException e) {
+            throw new MoodAnalysisException(MoodAnalysisException.MoodException.NO_SUCH_CLASS,e.getMessage());
+        }
+    }
 }

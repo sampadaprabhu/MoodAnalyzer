@@ -117,4 +117,34 @@ public class MoodAnalyzerTest {
             Assert.assertEquals(MoodAnalysisException.MoodException.NO_SUCH_CLASS,e.moodException);
         }
     }
+
+    //UC5:Create Mood Analyzer With Parameter Constructor
+    @Test
+    public void givenParameterMoodAnalyzerObject_WhenProper_ShouldReturnObject(){
+        try {
+            Constructor<?> constructor=MoodAnalyzerFactory.getConstructor(String.class);
+        } catch (MoodAnalysisException e) {
+            e.printStackTrace();
+        }
+    }
+    //5.2
+    @Test
+    public void givenMoodAnalyzerWrongClass_WithgetConstructor_WhenProper_ShouldReturnObject() throws MoodAnalysisException {
+        try {
+            Constructor<?> constructor=MoodAnalyzerFactory.getConstructor(String.class);
+        } catch (MoodAnalysisException e) {
+            //e.printStackTrace();
+            Assert.assertEquals(MoodAnalysisException.MoodException.NO_SUCH_CLASS,e.moodException);
+        }
+    }
+    //5.3
+    @Test
+    public void givenMoodAnalyzerWrongObject_WhenProper_ShouldReturnObject() throws MoodAnalysisException {
+        try {
+            Constructor<?> constructor=MoodAnalyzerFactory.getConstructor(Integer.class);
+        } catch (MoodAnalysisException e){
+            Assert.assertEquals(MoodAnalysisException.MoodException.NO_SUCH_METHOD,e.moodException);
+        }
+    }
+
 }
