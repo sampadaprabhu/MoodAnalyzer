@@ -110,5 +110,27 @@ public class MoodAnalyzerFactory {
             throw new MoodAnalysisException(MoodAnalysisException.MoodException.OBJECT_CREATION_ISSUE,"OBJECT_CREATION_ISSUE");
         }
     }
+    //UC7
+    public static Object getField(Constructor<?> constructor, String moodMethod, String messageString, String fieldString) throws MoodAnalysisException {
+        Field fieldName=null;
+        Field field;
+        try {
+            MoodAnalyzer obj= new MoodAnalyzer();
+            Class className=obj.getClass();
+            fieldName=className.getDeclaredField(fieldString);
+            fieldName.setAccessible(true);
+            fieldName.set(obj,messageString);
+            Method method = className.getDeclaredMethod(moodMethod);
+            return method.invoke(obj);
+        } catch (IllegalAccessException e) {
+            throw new MoodAnalysisException(MoodAnalysisException.MoodException.NO_ACCESS,"NO_ACCESS");
+        } catch(  InvocationTargetException e) {
+            throw new MoodAnalysisException(MoodAnalysisException.MoodException.OBJECT_CREATION_ISSUE,"OBJECT_CREATION_ISSUE");
+        } catch (NoSuchMethodException e) {
+            throw new MoodAnalysisException(MoodAnalysisException.MoodException.NO_SUCH_METHOD,"NO_SUCH_METHOD");
+        } catch (NoSuchFieldException e) {
+            throw new MoodAnalysisException(MoodAnalysisException.MoodException.NO_SUCH_FIELD, "NO_SUCH_FIELD");
+        }
+    }
 
 }

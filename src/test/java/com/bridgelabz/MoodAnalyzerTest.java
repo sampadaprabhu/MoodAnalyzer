@@ -178,6 +178,31 @@ public class MoodAnalyzerTest {
             Assert.assertEquals(MoodAnalysisException.MoodException.NO_SUCH_METHOD, e.moodException);
         }
     }
-
-
+    //UC7:Use Reflector To Change Mood Dynamically
+    @Test
+    public void givenFieldName_WhenProper_ShouldReturn_FieldObject(){
+        Class<?> className = null;
+        Object fieldObject=null;
+        try {
+            className = Class.forName("com.bridgelabz.MoodAnalyzer");
+            Constructor<?> constructor = MoodAnalyzerFactory.getConstructor(className, String.class);
+            fieldObject=MoodAnalyzerFactory.getField(constructor,"analyzedMethod","I am in Happy Mood","message");
+            Assert.assertEquals("message",fieldObject);
+        } catch (MoodAnalysisException e){
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+    @Test
+    public void givenFieldName_WhenNotProper_ShouldReturn_NO_SUCH_FIELD() {
+        Object fieldObject=null;
+        try{
+            Class<?> className=MoodAnalyzerFactory.getClass("com.mood.analyzer.MoodAnalyzer");
+            Constructor<?> constructor = MoodAnalyzerFactory.getConstructor(className, Integer.class);
+            fieldObject=MoodAnalyzerFactory.getField(constructor,"analyzedMethod","I am in happy mood","mesage");
+        }catch(MoodAnalysisException e){
+            Assert.assertEquals(MoodAnalysisException.MoodException.NO_SUCH_CLASS,e.moodException);
+        }
+    }
 }
