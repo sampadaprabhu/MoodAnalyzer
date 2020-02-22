@@ -84,4 +84,31 @@ public class MoodAnalyzerFactory {
             throw new MoodAnalysisException(MoodAnalysisException.MoodException.NO_SUCH_CLASS,e.getMessage());
         }
     }
+
+    //UC6
+    public static Object getObject(Constructor<?> constructor,Object ... message) throws MoodAnalysisException {
+        try {
+            return constructor.newInstance(message);
+        } catch (InstantiationException e) {
+            throw new MoodAnalysisException(MoodAnalysisException.MoodException.NO_SUCH_OBJECT,e.getMessage());
+        } catch (IllegalAccessException e) {
+            throw new MoodAnalysisException(MoodAnalysisException.MoodException.NO_ACCESS,e.getMessage());
+        } catch (InvocationTargetException e) {
+            throw new MoodAnalysisException(MoodAnalysisException.MoodException.OBJECT_CREATION_ISSUE, e.getMessage());
+        }
+    }
+
+
+    public static Object invokeMethod(Object moodObject, String message) throws MoodAnalysisException {
+        try {
+            return moodObject.getClass().getMethod(message).invoke(moodObject);
+        } catch (NoSuchMethodException e) {
+            throw new MoodAnalysisException(MoodAnalysisException.MoodException.NO_SUCH_METHOD,"NO_SUCH_METHOD");
+        } catch (IllegalAccessException e) {
+            throw new MoodAnalysisException(MoodAnalysisException.MoodException.NO_ACCESS,"NO_ACCESS");
+        } catch (InvocationTargetException e) {
+            throw new MoodAnalysisException(MoodAnalysisException.MoodException.OBJECT_CREATION_ISSUE,"OBJECT_CREATION_ISSUE");
+        }
+    }
+
 }

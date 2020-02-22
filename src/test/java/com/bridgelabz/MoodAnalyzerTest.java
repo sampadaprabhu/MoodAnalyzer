@@ -146,5 +146,38 @@ public class MoodAnalyzerTest {
             Assert.assertEquals(MoodAnalysisException.MoodException.NO_SUCH_METHOD,e.moodException);
         }
     }
+    //UC6  //UC6.1
+    @Test
+    public void givenMethod_WhenProper_ShouldReturnObject(){
+        Object myObject=null;
+        try {
+            Class<?> className=MoodAnalyzerFactory.getClass("com.bridgelabz.MoodAnalyzer");
+            Constructor<?> constructor=MoodAnalyzerFactory.getConstructor(className,String.class);
+            Object moodObject=MoodAnalyzerFactory.getObject(constructor,"I am in Happy Mood");
+            myObject=MoodAnalyzerFactory.invokeMethod(moodObject,"analyzedMood");
+            MoodAnalyzer moodAnalyzer=(MoodAnalyzer)moodObject;
+            String mood=moodAnalyzer.analyzedMood();
+            Assert.assertEquals("HAPPY",myObject);
+        } catch (MoodAnalysisException e) {
+            Assert.assertEquals("HAPPY",myObject);
+        }
+    }
+
+    //6.2
+    @Test
+    public void givenWrongMethod_WhenProper_ShouldReturnObject() throws MoodAnalysisException {
+        Object myObject=null;
+        try {
+            Class<?> className = MoodAnalyzerFactory.getClass("com.bridgelabz.MoodAnalyzer");
+            Constructor<?> constructor = MoodAnalyzerFactory.getConstructor(className, String.class);
+            Object moodObject = MoodAnalyzerFactory.getObject(constructor, "I am in Happy Mood");
+            myObject = MoodAnalyzerFactory.invokeMethod(moodObject, "analyzerMethod");
+            MoodAnalyzer moodAnalyzer = (MoodAnalyzer) moodObject;
+            String mood = moodAnalyzer.analyzedMood();
+        } catch (MoodAnalysisException e) {
+            Assert.assertEquals(MoodAnalysisException.MoodException.NO_SUCH_METHOD, e.moodException);
+        }
+    }
+
 
 }
